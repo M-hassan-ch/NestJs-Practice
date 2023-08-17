@@ -19,8 +19,8 @@ export class CtestController {
 
     @Post('/createProduct')
     @UsePipes(ValidationPipe)
-    createProduct(@Body() productDetails: CreateProductDTO): { data: CreateProductDTO } {
-        return { data: productDetails }
+    async createProduct(@Body() productDetails: CreateProductDTO): Promise<CreateProductDTO> {
+        return await this.testService.saveProduct(productDetails);
     }
 
 }
