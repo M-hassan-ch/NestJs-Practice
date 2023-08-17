@@ -19,8 +19,8 @@ export class CtestController {
 
     @Post('/createProduct')
     @UsePipes(ValidationPipe)
-    createProduct(@Body() productDetails : CreateProductDTO) : {data: CreateProductDTO}{
-        return {data: productDetails}
+    createProduct(@Body() productDetails: CreateProductDTO): { data: CreateProductDTO } {
+        return { data: productDetails }
     }
 
 }
