@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CtestController } from './ctest/ctest.controller';
-import { Product } from './product.entity';
-import { StestService } from './stest/stest.service';
+import { CtestController } from '../controllers/product.controller';
+import { Product } from '../entities/product.entity';
+import { StestService } from '../services/product.service';
 
 @Module({
   controllers: [CtestController],

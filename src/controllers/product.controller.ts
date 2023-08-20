@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateProductDTO } from '../dto/CreateProduct.dto';
-import { StestService } from "../stest/stest.service";
+import { StestService } from "../services/product.service";
 
 @Controller('testModule')
 export class CtestController {
