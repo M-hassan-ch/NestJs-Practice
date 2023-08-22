@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CtestController } from '../controllers/product.controller';
+import { SellerController } from 'src/controllers/seller.controller';
+import { SellerService } from 'src/services/seller.service';
+import { ProductController } from '../controllers/product.controller';
 import { Product } from '../entities/product.entity';
-import { StestService } from '../services/product.service';
+import { ProductService } from '../services/product.service';
+import { SellerModule } from './seller.module';
 
 @Module({
-  controllers: [CtestController],
-  imports: [TypeOrmModule.forFeature([Product])],
-  providers: [StestService]
+  controllers: [ProductController],
+  imports: [TypeOrmModule.forFeature([Product]), SellerModule],
+  providers: [ProductService]
 })
-export class Test1Module {}
+export class ProductModule { }

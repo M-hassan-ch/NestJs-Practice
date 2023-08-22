@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, isNotEmpty, isString, Length, length } from "class-validator";
+import { IsInt, IsNotEmpty, Length } from "class-validator";
 
 
 export class CreateProductDTO {
@@ -9,4 +9,5 @@ export class CreateProductDTO {
 
     @IsInt({ message: 'Price is not a number' })
     price: number;
+    
 }
