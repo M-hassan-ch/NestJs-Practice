@@ -5,9 +5,9 @@ export class SellerDTO {
 
     @IsNotEmpty({ message: 'Name cannot be empty' })
     @Length(2, 20)
-    name: string;
+    email: string;
 
-    @IsNotEmpty({ message: 'Address cannot be empty' })
+    @IsNotEmpty({ message: 'Password cannot be empty' })
     @Length(2, 20)
-    address: string;
+    password: string;
 }

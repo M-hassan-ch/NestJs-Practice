@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./product.entity";
+import * as bcrypt from 'bcrypt'
 
 @Entity("Seller")
 export class Seller extends BaseEntity {
@@ -9,15 +10,25 @@ export class Seller extends BaseEntity {
 
     @Column({
         type: 'varchar',
+        unique: true,
     })
-    name: string
+    email: string
 
     @Column({
         type: 'varchar',
     })
-    address: string
+    password: string
 
     @OneToMany(() => Product, (product) => product.seller)
     products: Product[];
+
+    @BeforeInsert()
+    async setPassword(password: string) {
+        console.log("calling before insert");
+
+        const salt = await bcrypt.genSalt();
+        const passwordHash = await bcrypt.hash(this.password, salt);
+        this.password = passwordHash;
+    }
 
 }

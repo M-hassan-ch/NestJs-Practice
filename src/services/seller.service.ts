@@ -12,7 +12,11 @@ export class SellerService {
     ) { }
 
     async saveSeller(seller: SellerDTO): Promise<SellerDTO> {
-        return await this.sellerRepo.save(seller);
+        const newSeller = new Seller();
+        newSeller.email = seller.email;
+        newSeller.password = seller.password;
+  
+        return await this.sellerRepo.save(newSeller);
     }
 
     async getSellerById(_id: number): Promise<Seller> {
