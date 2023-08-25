@@ -51,7 +51,7 @@ export class ProductService {
         if (!product) {
             throw new NotFoundException(`product with ID ${_id} not found`);
         }
-        
+
         return product
     }
 
