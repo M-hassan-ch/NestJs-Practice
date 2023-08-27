@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,6 +7,7 @@ import { ProductModule } from './modules/product.module';
 import { SellerModule } from './modules/seller.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import apiTokenChecker from './middlewares/apiTokenChecker.middleware';
 
 @Module({
   imports: [
@@ -23,4 +24,10 @@ import { AuthModule } from './auth/auth.module';
   providers: [AppService],
 })
 
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(apiTokenChecker)
+      .forRoutes(AppController);
+  }
+}
