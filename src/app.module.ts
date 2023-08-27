@@ -6,6 +6,7 @@ import { typeOrmConfigAsync } from './config/postgres.config';
 import { ProductModule } from './modules/product.module';
 import { SellerModule } from './modules/seller.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
     TypeOrmModule.forRootAsync(typeOrmConfigAsync),
     SellerModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

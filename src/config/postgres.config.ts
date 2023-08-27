@@ -4,8 +4,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 export default class TypeOrmConfig {
 
     static getOrmConfig(configService: ConfigService): TypeOrmModuleOptions {
-        console.log(configService.get('DB_HOST'));
-        
         return {
             type: 'postgres',
             host: configService.get('DB_HOST'),
@@ -17,7 +15,7 @@ export default class TypeOrmConfig {
                 __dirname + '/../**/*.entity{.ts,.js}',
             ],
             synchronize: true,
-            logging: true,
+            // logging: true,
         };
     }
 

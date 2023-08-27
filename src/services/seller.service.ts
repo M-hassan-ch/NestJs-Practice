@@ -35,4 +35,18 @@ export class SellerService {
 
         return seller; // Returns undefined if seller is not found
     }
+
+    async getSellerByEmail(_email: string): Promise<Seller> {
+        const seller = await this.sellerRepo.findOne({
+            where: {
+                email: _email
+            }
+        });
+
+        if (!seller) {
+            throw new NotFoundException(`Seller with email ${_email} not found`);
+        }
+
+        return seller; // Returns undefined if seller is not found
+    }
 }
