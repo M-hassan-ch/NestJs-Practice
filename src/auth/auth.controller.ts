@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
@@ -25,6 +25,23 @@ export class AuthController {
     }
 
     @ApiUnauthorizedResponse({
+        description: "Invalid wallet address"
+    })
+    @Post('/web3Auth')
+    async authUserWallet(@Body() obj: {msg: string, sig: string, caller: string}) {
+        console.log('sdsd');
+        
+        const isValidAddress : boolean = await this.authService.isValidUserWallet(obj);
+
+        if (!isValidAddress){
+            throw new UnauthorizedException();
+        }
+        else{
+            return await this.authService.generateTokenWithWallet("Valid user");
+        }
+    }
+
+    @ApiUnauthorizedResponse({
         description: "Invalid jwt token"
     })
     @UseGuards(AuthGuard('jwt'))
@@ -32,4 +49,6 @@ export class AuthController {
     async getUser(@Request() req) {
         return req.user;
     }
+
+
 }

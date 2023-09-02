@@ -3,6 +3,7 @@ import { SellerService } from 'src/services/seller.service';
 import * as bcrypt from 'bcrypt'
 import { Seller } from 'src/entities/seller.entity';
 import { JwtService } from '@nestjs/jwt';
+import { ethers } from 'ethers';
 
 @Injectable()
 export class AuthService {
@@ -28,6 +29,23 @@ export class AuthService {
             accessToken: await this.jwtService.sign({
                 email: user.email,
                 id: user.id
+            })
+        }
+    }
+
+    async isValidUserWallet(obj: { msg: string, sig: string, caller: string }): Promise<boolean> {
+        const signer = await ethers.verifyMessage(obj.msg, obj.sig);
+
+        if (signer.toLowerCase() == obj.caller.toLowerCase()) {
+            return true
+        }
+        return false;
+    }
+
+    async generateTokenWithWallet(msg: String): Promise<{ accessToken: string }> {
+        return {
+            accessToken: await this.jwtService.sign({
+                message: msg
             })
         }
     }
